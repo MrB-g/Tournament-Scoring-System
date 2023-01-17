@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class team {
     private int teamId;
     private String teamName;
-    private ArrayList<points> pointsForEachEvent;
+    private ArrayList<points> pointsForEachEvent = new ArrayList<points>();
 
     // Additional Methods
     public int getTotalPoints() {

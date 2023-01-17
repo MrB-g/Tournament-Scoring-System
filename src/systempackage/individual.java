@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class individual {
     private int individualId;
     private String individualName;
-    private ArrayList<points> pointsForEachEvent;
+    private ArrayList<points> pointsForEachEvent = new ArrayList<points>();
 
     // Additional Methods
     public int getTotalPoints() {

@@ -3,7 +3,7 @@ package systempackage;
 import java.util.ArrayList;
 
 public class teamCollector {
-    private ArrayList<team> teams;
+    private ArrayList<team> teams = new ArrayList<team>();
 
     // Additional Methods
     public int getTotalTeams() {
@@ -19,7 +19,7 @@ public class teamCollector {
         }
     }
 
-    public ArrayList<String> getWinnerForEachEvent() {
+    public ArrayList<String> getWinnerForEachEvent(int totalEvents) {
         ArrayList<String> winners = new ArrayList<String>();
         int eventId = 0;
         int winningPoint = 0;
@@ -36,7 +36,7 @@ public class teamCollector {
                 }
             }
             times += 1;
-            if (times == 4) {
+            if (times == totalEvents) {
                 winners.add(winner);
                 eventId += 1;
                 winningPoint = 0;

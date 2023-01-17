@@ -3,8 +3,8 @@ package systempackage;
 import java.util.ArrayList;
 
 public class eventCollector {
-    private ArrayList<event> events;
-    private ArrayList<winner> winnerForEachEvent;
+    private ArrayList<event> events = new ArrayList<event>();
+    private ArrayList<winner> winnerForEachEvent = new ArrayList<winner>();
     private winner winnerForAllEvent;
 
     // Additional Methods
