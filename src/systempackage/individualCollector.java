@@ -19,44 +19,44 @@ public class individualCollector {
         }
     }
     
-    public ArrayList<String> getWinnerForEachEvent(int totalEvents) {
-        ArrayList<String> winners = new ArrayList<String>();
-        int eventId = 0;
+    public int getWinnerForSpecificEvent(int eventId) {
         int winningPoint = 0;
-        int times = 0;
-        String winner = "";
+        int winnerId = 0;
         for (individual eachIndividual : individuals) {
             for (points eachIndividualPoints : eachIndividual.getPointsForEachEvent()) {
                 if (eventId == eachIndividualPoints.getEventId()) {
-                    if (winningPoint < eachIndividualPoints.getPoints()) {
+                    if (winningPoint <= eachIndividualPoints.getPoints()) {
                         winningPoint = eachIndividualPoints.getPoints();
-                        winner = eachIndividual.getIndividualName();
+                        winnerId = eachIndividual.getIndividualId();
                     }
                     break;
                 }
             }
-            times += 1;
-            if (times == totalEvents) {
-                winners.add(winner);
-                eventId += 1;
-                winningPoint = 0;
-                times = 0;
-                winner = "";
-            }
         }
-        return winners;
+        return winnerId;
     }
     
     public String getWinnerForAllEvents() {
-        String winner = "";
+        String finalWinner = "";
         int winningPoint = 0;
         for (individual eachIndividual : individuals) {
             if (winningPoint < eachIndividual.getTotalPoints()) {
                 winningPoint = eachIndividual.getTotalPoints();
-                winner = eachIndividual.getIndividualName();
+                finalWinner = eachIndividual.getIndividualName();
             }
         }
-        return winner;
+        return finalWinner;
+    }
+
+    public String getIndividualNameById(int individualId) {
+        String individualName = "";
+        for (individual eachIndividual : individuals) {
+            if (eachIndividual.getIndividualId() == individualId) {
+                individualName = eachIndividual.getIndividualName();
+                break;
+            }
+        }
+        return individualName;
     }
     
     // Getter
@@ -65,7 +65,7 @@ public class individualCollector {
     }
 
     // Setter
-    public void addIndividual(individual newIndividual) {
+    public void addNewIndividual(individual newIndividual) {
         individuals.add(newIndividual);
     }
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class eventCollector {
     private ArrayList<event> events = new ArrayList<event>();
-    private ArrayList<winner> winnerForEachEvent = new ArrayList<winner>();
-    private winner winnerForAllEvent;
+    private ArrayList<winner> winnerForEachEvent;
+    private String winnerForAllEvent;
 
     // Additional Methods
     public int getTotalEvents() {
@@ -21,12 +21,20 @@ public class eventCollector {
         return winnerForEachEvent;
     }
 
-    public winner getWinnerForAllEvent() {
+    public String getWinnerForAllEvent() {
         return winnerForAllEvent;
     }
 
     // Setter 
     public void addNewEvent(event newEvent) {
         events.add(newEvent);
+    }
+
+    public void addWinnerForEachEvent(winner newWinner) {
+        winnerForEachEvent.add(newWinner);
+    }
+
+    public void addWinnerForAllEvent(String finalWinner) {
+        winnerForAllEvent = finalWinner;
     }
 }

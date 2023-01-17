@@ -44,7 +44,7 @@ public class team {
         teamName = newTeamName;
     }
 
-    public void addPointsForEachEvent(points NewPoint) {
-        pointsForEachEvent.add(NewPoint);
+    public void addPointsForEachEvent(points newPoint) {
+        pointsForEachEvent.add(newPoint);
     }
 }

@@ -1,9 +1,12 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 import systempackage.*;
 
 public class app {
     private static int totalEvents = 5;
+    private static int totalTeams = 4;
+    private static int totalIndividuals = 20;
 
     public static boolean checkUserInputString(String userInput) {
         Pattern pattern = Pattern.compile("^[A-Za-z, ]++$");
@@ -24,19 +27,9 @@ public class app {
 
         // Get Event Name Input
         for (int eventId = 0; eventId < totalEvents; eventId++) {
-            String eventTitle = "";
             String eventName;
-            if (eventId + 1 == 1) {
-                eventTitle = (eventId + 1) + "st";
-            } else if (eventId + 1 == 2) {
-                eventTitle = (eventId + 1) + "nd";
-            } else if (eventId + 1 == 3) {
-                eventTitle = (eventId + 1) + "rd";
-            } else {
-                eventTitle = (eventId + 1) + "th";
-            }
             do {
-                System.out.print("Enter " + eventTitle + " Event Name : ");
+                System.out.print("Enter Name for Event " + (eventId + 1) + " : ");
                 eventName = userInput.nextLine().trim();
                 if(checkUserInputString(eventName) == false){
                     System.out.println("Invalid name. Please only type text.");
@@ -47,17 +40,171 @@ public class app {
         }
 
         // Allow User to Choose Team or Individual
+        System.out.println("");
         String type;
         do {
             System.out.print("Type this system is used for (Team, Individual) : ");
-            type = userInput.nextLine().trim();
+            type = userInput.nextLine().trim().toLowerCase();
             if (checkUserInputString(type) == false) {
                 System.out.println("Your input is invalid. Please only type text.");
             }
         } while (checkUserInputString(type) == false);
-        System.out.println(type.toLowerCase());
+        System.out.println("");
 
+        // User Choose Team
+        if (type.equals("team")) {
+            String finalWinner;
+
+            // Add Name for Each Team
+            teamCollector teams = new teamCollector();
+            for (int teamId = 0; teamId < totalTeams; teamId++) {
+                String teamName;
+                do {
+                    System.out.print("Enter Name for Team " + (teamId + 1) + " : ");
+                    teamName = userInput.nextLine().trim();
+                    if (checkUserInputString(teamName) == false) {
+                        System.out.println("Invalid name. Please only type text.");
+                    }
+                } while (checkUserInputString(teamName) == false);
+                team newTeam = new team(teamId, teamName);
+                teams.addNewTeam(newTeam);
+            }
+
+            System.out.println("");
+            for (event singleEvent : events.getEvents()) {
+                System.out.println("Points for " + singleEvent.getEventName() + " Event");
+                ArrayList<Integer> userInputPoints = new ArrayList<Integer>();
+                String currentWinner;
+                int currentWinnerId;
+
+                // Add Point for Each Team
+                for (team singleTeam : teams.getTeams()) {
+                    String userInputPoint = "0";
+                    int point;
+                    while (true) {
+                        System.out.print("Add " + singleTeam.getTeamName() + " Team Point : ");
+                        userInputPoint = userInput.nextLine();
+                        if (checkUserInputString(userInputPoint)) {
+                            System.out.println("Invalid point. Only add numbers.");
+                        } else {
+                            point = Integer.parseInt(userInputPoint);
+                            if (point < 0) {
+                                System.out.println("Only add positive numbers.");
+                            } else {
+                                if (userInputPoints.contains(point)) {
+                                    System.out.println("You can't add duplicated points.");
+                                } else {
+                                    userInputPoints.add(point);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    points newPoint = new points(point, singleEvent.getEventId());
+                    singleTeam.addPointsForEachEvent(newPoint);
+                }
+
+                // Get Winner of Current Event
+                currentWinnerId = teams.getWinnerForSpecificEvent(singleEvent.getEventId());
+                currentWinner = teams.getTeamNameById(currentWinnerId);
+                winner newWinner = new winner(singleEvent.getEventId(), currentWinnerId);
+                events.addWinnerForEachEvent(newWinner);
+                System.out.println("Winner for " + singleEvent.getEventName() + " Event is " + currentWinner + ".");
+                System.out.println("");
+            }
+
+            // Get Winner for All Events
+            finalWinner = teams.getWinnerForAllEvents();
+            events.addWinnerForAllEvent(finalWinner);
+            System.out.println("The Final Winner is " + finalWinner + " Team.");
+            System.out.println("");
+        }
         
+        // User Choose Individual
+        else if (type.equals("individual")) {
+            String finalWinner;
+
+            // Add Name for Each Individual
+            individualCollector individuals = new individualCollector();
+            for (int individualId = 0; individualId < totalIndividuals; individualId++) {
+                String individualName;
+                do {
+                    System.out.print("Enter Name for Individual " + (individualId + 1) + " : ");
+                    individualName = userInput.nextLine().trim();
+                    if (checkUserInputString(individualName) == false) {
+                        System.out.println("Invalid name. Please only type text.");
+                    }
+                } while (checkUserInputString(individualName) == false);
+                individual newIndividual = new individual(individualId, individualName);
+                individuals.addNewIndividual(newIndividual);
+            }
+
+            System.out.println("");
+            for (event singleEvent : events.getEvents()) {
+                System.out.println("Points for " + singleEvent.getEventName() + " Event");
+                ArrayList<Integer> userInputPoints = new ArrayList<Integer>();
+                String currentWinner;
+                int currentWinnerId;
+
+                // Add Point for Each Individual
+                for (individual singleIndividual : individuals.getIndividuals()) {
+                    String userInputPoint = "0";
+                    int point;
+                    while (true) {
+                        System.out.print("Add " + singleIndividual.getIndividualName() + " Point : ");
+                        userInputPoint = userInput.nextLine();
+                        if (checkUserInputString(userInputPoint)) {
+                            System.out.println("Invalid point. Only add numbers.");
+                        } else {
+                            point = Integer.parseInt(userInputPoint);
+                            if (point < 0) {
+                                System.out.println("Only add positive numbers.");
+                            } else {
+                                if (userInputPoints.contains(point)) {
+                                    System.out.println("You can't add duplicated points.");
+                                } else {
+                                    userInputPoints.add(point);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    points newPoint = new points(point, singleEvent.getEventId());
+                    singleIndividual.addPointsForEachEvent(newPoint);
+                }
+
+                // Get Winner of Current Event
+                currentWinnerId = individuals.getWinnerForSpecificEvent(singleEvent.getEventId());
+                currentWinner = individuals.getIndividualNameById(currentWinnerId);
+                winner newWinner = new winner(singleEvent.getEventId(), currentWinnerId);
+                events.addWinnerForEachEvent(newWinner);
+                System.out.println("Winner for " + singleEvent.getEventName() + " Event is " + currentWinner + ".");
+                System.out.println("");
+            }
+
+            // Get Winner for All Events
+            finalWinner = individuals.getWinnerForAllEvents();
+            events.addWinnerForAllEvent(finalWinner);
+            System.out.println("The Final Winner is " + finalWinner + " .");
+            System.out.println("");
+        }
+        
+        // Restart or Not
+        String userAnswer;
+        do {
+            System.out.print("Want to restart the process or not | Yes, No : ");
+            userAnswer = userInput.nextLine().trim().toLowerCase();
+            if (checkUserInputString(userAnswer) == false) {
+                System.out.println("Please input the valid answer.");
+            }
+        } while (checkUserInputString(userAnswer) == false);
+        if (userAnswer == "yes") {
+            startTheProgram();
+        } else if (userAnswer == "no") {
+            System.out.println("Hope to see you again.");
+            userInput.close();
+            System.exit(0);
+        }
     }
 
     // Main Method

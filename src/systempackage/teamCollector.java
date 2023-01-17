@@ -19,44 +19,44 @@ public class teamCollector {
         }
     }
 
-    public ArrayList<String> getWinnerForEachEvent(int totalEvents) {
-        ArrayList<String> winners = new ArrayList<String>();
-        int eventId = 0;
+    public int getWinnerForSpecificEvent(int eventId) {
         int winningPoint = 0;
-        int times = 0;
-        String winner = "";
+        int winnerId = 0;
         for (team eachTeam : teams) {
             for (points eachTeamPoints : eachTeam.getPointsForEachEvent()) {
                 if (eventId == eachTeamPoints.getEventId()) {
-                    if (winningPoint < eachTeamPoints.getPoints()) {
+                    if (winningPoint <= eachTeamPoints.getPoints()) {
                         winningPoint = eachTeamPoints.getPoints();
-                        winner = eachTeam.getTeamName();
+                        winnerId = eachTeam.getTeamId();
                     }
                     break;
                 }
             }
-            times += 1;
-            if (times == totalEvents) {
-                winners.add(winner);
-                eventId += 1;
-                winningPoint = 0;
-                times = 0;
-                winner = "";
-            }
         }
-        return winners;
+        return winnerId;
     }
     
     public String getWinnerForAllEvents() {
-        String winner = "";
+        String finalWinner = "";
         int winningPoint = 0;
         for (team eachTeam : teams) {
             if (winningPoint < eachTeam.getTotalPoints()) {
                 winningPoint = eachTeam.getTotalPoints();
-                winner = eachTeam.getTeamName();
+                finalWinner = eachTeam.getTeamName();
             }
         }
-        return winner;
+        return finalWinner;
+    }
+
+    public String getTeamNameById(int teamId) {
+        String teamName = "";
+        for (team eachTeam : teams) {
+            if (eachTeam.getTeamId() == teamId) {
+                teamName = eachTeam.getTeamName();
+                break;
+            }
+        }
+        return teamName;
     }
     
     // Getter
@@ -65,7 +65,7 @@ public class teamCollector {
     }
 
     // Setter 
-    public void addTeam(team newTeam) {
+    public void addNewTeam(team newTeam) {
         teams.add(newTeam);
     }
 }
