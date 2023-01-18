@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class eventCollector {
     private ArrayList<event> events = new ArrayList<event>();
-    private ArrayList<winner> winnerForEachEvent;
+    private ArrayList<winner> winnerForEachEvent = new ArrayList<winner>();
     private String winnerForAllEvent;
 
     // Additional Methods

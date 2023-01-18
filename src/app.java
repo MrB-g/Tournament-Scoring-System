@@ -83,21 +83,27 @@ public class app {
                     int point;
                     while (true) {
                         System.out.print("Add " + singleTeam.getTeamName() + " Team Point : ");
-                        userInputPoint = userInput.nextLine();
-                        if (checkUserInputString(userInputPoint)) {
-                            System.out.println("Invalid point. Only add numbers.");
-                        } else {
-                            point = Integer.parseInt(userInputPoint);
-                            if (point < 0) {
-                                System.out.println("Only add positive numbers.");
+                        try {
+                            userInputPoint = userInput.nextLine();
+                            if (checkUserInputString(userInputPoint)) {
+                                System.out.println("Invalid point. Only add numbers.");
+                            } else if(userInputPoint == ""){
+                                System.out.println("Empty point can't be added.");
                             } else {
-                                if (userInputPoints.contains(point)) {
-                                    System.out.println("You can't add duplicated points.");
+                                point = Integer.parseInt(userInputPoint);
+                                if (point < 0) {
+                                    System.out.println("Only add positive numbers.");
                                 } else {
-                                    userInputPoints.add(point);
-                                    break;
+                                    if (userInputPoints.contains(point)) {
+                                        System.out.println("You can't add duplicated points.");
+                                    } else {
+                                        userInputPoints.add(point);
+                                        break;
+                                    }
                                 }
                             }
+                        } catch (Exception error) {
+                            System.out.println("Invalid point. Try Again.");
                         }
                     }
                     points newPoint = new points(point, singleEvent.getEventId());
@@ -152,21 +158,27 @@ public class app {
                     int point;
                     while (true) {
                         System.out.print("Add " + singleIndividual.getIndividualName() + " Point : ");
-                        userInputPoint = userInput.nextLine();
-                        if (checkUserInputString(userInputPoint)) {
-                            System.out.println("Invalid point. Only add numbers.");
-                        } else {
-                            point = Integer.parseInt(userInputPoint);
-                            if (point < 0) {
-                                System.out.println("Only add positive numbers.");
+                        try {
+                            userInputPoint = userInput.nextLine();
+                            if (checkUserInputString(userInputPoint)) {
+                                System.out.println("Invalid point. Only add numbers.");
+                            } else if (userInputPoint == "") {
+                                System.out.println("Empty point can't be added.");
                             } else {
-                                if (userInputPoints.contains(point)) {
-                                    System.out.println("You can't add duplicated points.");
+                                point = Integer.parseInt(userInputPoint);
+                                if (point < 0) {
+                                    System.out.println("Only add positive numbers.");
                                 } else {
-                                    userInputPoints.add(point);
-                                    break;
+                                    if (userInputPoints.contains(point)) {
+                                        System.out.println("You can't add duplicated points.");
+                                    } else {
+                                        userInputPoints.add(point);
+                                        break;
+                                    }
                                 }
                             }
+                        } catch (Exception error) {
+                            System.out.println("Invalid point. Try again.");
                         }
                     }
                     points newPoint = new points(point, singleEvent.getEventId());
@@ -177,6 +189,7 @@ public class app {
                 currentWinnerId = individuals.getWinnerForSpecificEvent(singleEvent.getEventId());
                 currentWinner = individuals.getIndividualNameById(currentWinnerId);
                 winner newWinner = new winner(singleEvent.getEventId(), currentWinnerId);
+
                 events.addWinnerForEachEvent(newWinner);
                 System.out.println("Winner for " + singleEvent.getEventName() + " Event is " + currentWinner + ".");
                 System.out.println("");
@@ -198,10 +211,11 @@ public class app {
                 System.out.println("Please input the valid answer.");
             }
         } while (checkUserInputString(userAnswer) == false);
-        if (userAnswer == "yes") {
+        if (userAnswer.equals("yes")) {
             startTheProgram();
-        } else if (userAnswer == "no") {
+        } else if (userAnswer.equals("no")) {
             System.out.println("Hope to see you again.");
+            System.out.println("");
             userInput.close();
             System.exit(0);
         }
