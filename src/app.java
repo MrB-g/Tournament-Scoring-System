@@ -118,7 +118,7 @@ public class app {
                 System.out.println("Winner for " + singleEvent.getEventName() + " Event is " + currentWinner + ".");
                 System.out.println("");
                 
-                // Deletet Team that want to Leave
+                // Delete Team that want to Leave
                 String userChoice;
                 while (true) {
                     System.out.print("Is there any team that want to leave? Yes, No | ");
@@ -227,7 +227,7 @@ public class app {
                 System.out.println("Winner for " + singleEvent.getEventName() + " Event is " + currentWinner + ".");
                 System.out.println("");
                 
-                // Deletet Team that want to Leave
+                // Delete Individual that want to Leave
                 String userChoice;
                 while (true) {
                     System.out.print("Is there any individual that want to leave? Yes, No | ");
