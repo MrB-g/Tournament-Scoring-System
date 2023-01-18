@@ -140,7 +140,7 @@ public class app {
                         System.out.print("Type Team Name : ");
                         deleteTeamName = userInput.nextLine().trim().toLowerCase();
                         if(teams.deleteTeam(deleteTeamName) == false){
-                            System.out.println("Your input team is not existed.");
+                            System.out.println("Your input team doesn't exist.");
                         } else {
                             System.out.println("Successfully Deleted!");
                             System.out.println("");
@@ -249,7 +249,7 @@ public class app {
                         System.out.print("Type Individual Name : ");
                         deleteIndividualName = userInput.nextLine().trim().toLowerCase();
                         if(individuals.deleteIndividual(deleteIndividualName) == false){
-                            System.out.println("Your input individual is not existed.");
+                            System.out.println("Your input individual doesn't exist.");
                         } else {
                             System.out.println("Successfully Deleted!");
                             System.out.println("");

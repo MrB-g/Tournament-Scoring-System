@@ -21,7 +21,6 @@ public class individualCollector {
         }
         if (foundIndex) {
             this.getIndividuals().remove(deleteIndex);
-            foundIndex = true;
         }
         return foundIndex;
     }

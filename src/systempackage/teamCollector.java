@@ -21,7 +21,6 @@ public class teamCollector {
         }
         if (foundIndex) {
             this.getTeams().remove(deleteIndex);
-            foundIndex = true;
         }
         return foundIndex;
     }
