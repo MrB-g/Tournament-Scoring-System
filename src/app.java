@@ -117,6 +117,39 @@ public class app {
                 events.addWinnerForEachEvent(newWinner);
                 System.out.println("Winner for " + singleEvent.getEventName() + " Event is " + currentWinner + ".");
                 System.out.println("");
+                
+                // Deletet Team that want to Leave
+                String userChoice;
+                while (true) {
+                    System.out.print("Is there any team that want to leave? Yes, No | ");
+                    userChoice = userInput.nextLine().trim().toLowerCase();
+                    if (checkUserInputString(userChoice)) {
+                        if (!userChoice.equals("yes") && !userChoice.equals("no")) {
+                            System.out.println("Please only type yes or no.");
+                        } else {
+                            break;
+                        }
+                    } else {
+                        System.out.println("Please input the valid answer.");
+                    }
+                }
+
+                if (userChoice.equals("yes")) {
+                    String deleteTeamName;
+                    while (true) {
+                        System.out.print("Type Team Name : ");
+                        deleteTeamName = userInput.nextLine().trim().toLowerCase();
+                        if(teams.deleteTeam(deleteTeamName) == false){
+                            System.out.println("Your input team is not existed.");
+                        } else {
+                            System.out.println("Successfully Deleted!");
+                            System.out.println("");
+                            break;
+                        }
+                    }
+                } else if (userChoice.equals("no")) {
+                    System.out.println("");
+                }
             }
 
             // Get Winner for All Events
@@ -193,6 +226,39 @@ public class app {
                 events.addWinnerForEachEvent(newWinner);
                 System.out.println("Winner for " + singleEvent.getEventName() + " Event is " + currentWinner + ".");
                 System.out.println("");
+                
+                // Deletet Team that want to Leave
+                String userChoice;
+                while (true) {
+                    System.out.print("Is there any individual that want to leave? Yes, No | ");
+                    userChoice = userInput.nextLine().trim().toLowerCase();
+                    if (checkUserInputString(userChoice)) {
+                        if (!userChoice.equals("yes") && !userChoice.equals("no")) {
+                            System.out.println("Please only type yes or no.");
+                        } else {
+                            break;
+                        }
+                    } else {
+                        System.out.println("Please input the valid answer.");
+                    }
+                }
+
+                if (userChoice.equals("yes")) {
+                    String deleteIndividualName;
+                    while (true) {
+                        System.out.print("Type Individual Name : ");
+                        deleteIndividualName = userInput.nextLine().trim().toLowerCase();
+                        if(individuals.deleteIndividual(deleteIndividualName) == false){
+                            System.out.println("Your input individual is not existed.");
+                        } else {
+                            System.out.println("Successfully Deleted!");
+                            System.out.println("");
+                            break;
+                        }
+                    }
+                } else if (userChoice.equals("no")) {
+                    System.out.println("");
+                }
             }
 
             // Get Winner for All Events
@@ -204,13 +270,20 @@ public class app {
         
         // Restart or Not
         String userAnswer;
-        do {
+        while (true) {
             System.out.print("Want to restart the process or not | Yes, No : ");
             userAnswer = userInput.nextLine().trim().toLowerCase();
-            if (checkUserInputString(userAnswer) == false) {
+            if (checkUserInputString(userAnswer)) {
+                if (!userAnswer.equals("yes") && !userAnswer.equals("no")) {
+                    System.out.println("Please only type yes or no.");
+                } else {
+                    break;
+                }
+            } else {
                 System.out.println("Please input the valid answer.");
             }
-        } while (checkUserInputString(userAnswer) == false);
+        }
+
         if (userAnswer.equals("yes")) {
             startTheProgram();
         } else if (userAnswer.equals("no")) {

@@ -10,13 +10,20 @@ public class individualCollector {
         return individuals.size();
     }
 
-    public void deleteIndividual(String deleteIndividualName) {
-        for (int index = 0; index < individuals.size(); index++) {
-            if (individuals.get(index).getIndividualName().toLowerCase() == deleteIndividualName.toLowerCase()) {
-                individuals.remove(index);
-                break;
+    public boolean deleteIndividual(String deleteIndividualName) {
+        boolean foundIndex = false;
+        int deleteIndex = 0;
+        for (int index = 0; index < this.getIndividuals().size(); index++) {
+            if (this.getIndividuals().get(index).getIndividualName().toLowerCase().equals(deleteIndividualName)) {
+                deleteIndex = index;
+                foundIndex = true;
             }
         }
+        if (foundIndex) {
+            this.getIndividuals().remove(deleteIndex);
+            foundIndex = true;
+        }
+        return foundIndex;
     }
     
     public int getWinnerForSpecificEvent(int eventId) {

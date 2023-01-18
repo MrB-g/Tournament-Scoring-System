@@ -10,13 +10,20 @@ public class teamCollector {
         return teams.size();
     }
 
-    public void deleteTeam(String deleteTeamName) {
-        for (int index = 0; index < teams.size(); index++) {
-            if(teams.get(index).getTeamName().toLowerCase() == deleteTeamName.toLowerCase()){
-                teams.remove(index);
-                break;
+    public boolean deleteTeam(String deleteTeamName) {
+        boolean foundIndex = false;
+        int deleteIndex = 0;
+        for (int index = 0; index < this.getTeams().size(); index++) {
+            if (this.getTeams().get(index).getTeamName().toLowerCase().equals(deleteTeamName)) {
+                deleteIndex = index;
+                foundIndex = true;
             }
         }
+        if (foundIndex) {
+            this.getTeams().remove(deleteIndex);
+            foundIndex = true;
+        }
+        return foundIndex;
     }
 
     public int getWinnerForSpecificEvent(int eventId) {
